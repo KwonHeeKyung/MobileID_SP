@@ -1,0 +1,152 @@
+{
+  "groups": [
+    {
+      "name": "app",
+      "type": "mip.mva.verifier.config.ConfigBean",
+      "sourceType": "mip.mva.verifier.config.ConfigBean"
+    }
+  ],
+  "properties": [
+    {
+      "name": "app.blockchain-server-domain",
+      "type": "java.lang.String",
+      "sourceType": "mip.mva.verifier.config.ConfigBean"
+    },
+    {
+      "name": "app.include-profile",
+      "type": "java.lang.Boolean",
+      "sourceType": "mip.mva.verifier.config.ConfigBean"
+    },
+    {
+      "name": "app.issuer-check-vc",
+      "type": "java.lang.Boolean",
+      "sourceType": "mip.mva.verifier.config.ConfigBean"
+    },
+    {
+      "name": "app.keymanager-password",
+      "type": "java.lang.String",
+      "sourceType": "mip.mva.verifier.config.ConfigBean"
+    },
+    {
+      "name": "app.keymanager-path",
+      "type": "java.lang.String",
+      "sourceType": "mip.mva.verifier.config.ConfigBean"
+    },
+    {
+      "name": "app.proxy-conn-time-out",
+      "type": "java.lang.Integer",
+      "sourceType": "mip.mva.verifier.config.ConfigBean"
+    },
+    {
+      "name": "app.proxy-server",
+      "type": "java.lang.String",
+      "sourceType": "mip.mva.verifier.config.ConfigBean"
+    },
+    {
+      "name": "app.push-ms-code",
+      "type": "java.lang.String",
+      "sourceType": "mip.mva.verifier.config.ConfigBean"
+    },
+    {
+      "name": "app.push-server-domain",
+      "type": "java.lang.String",
+      "sourceType": "mip.mva.verifier.config.ConfigBean"
+    },
+    {
+      "name": "app.push-type",
+      "type": "java.lang.String",
+      "sourceType": "mip.mva.verifier.config.ConfigBean"
+    },
+    {
+      "name": "app.sdk-detail-log",
+      "type": "java.lang.Boolean",
+      "sourceType": "mip.mva.verifier.config.ConfigBean"
+    },
+    {
+      "name": "app.sdk-use-cache",
+      "type": "java.lang.Boolean",
+      "sourceType": "mip.mva.verifier.config.ConfigBean"
+    },
+    {
+      "name": "app.sp-account",
+      "type": "java.lang.String",
+      "sourceType": "mip.mva.verifier.config.ConfigBean"
+    },
+    {
+      "name": "app.sp-api-error",
+      "type": "java.lang.String",
+      "sourceType": "mip.mva.verifier.config.ConfigBean"
+    },
+    {
+      "name": "app.sp-api-join",
+      "type": "java.lang.String",
+      "sourceType": "mip.mva.verifier.config.ConfigBean"
+    },
+    {
+      "name": "app.sp-api-profile",
+      "type": "java.lang.String",
+      "sourceType": "mip.mva.verifier.config.ConfigBean"
+    },
+    {
+      "name": "app.sp-api-use",
+      "type": "java.lang.Boolean",
+      "sourceType": "mip.mva.verifier.config.ConfigBean"
+    },
+    {
+      "name": "app.sp-api-verify",
+      "type": "java.lang.String",
+      "sourceType": "mip.mva.verifier.config.ConfigBean"
+    },
+    {
+      "name": "app.sp-api-vp",
+      "type": "java.lang.String",
+      "sourceType": "mip.mva.verifier.config.ConfigBean"
+    },
+    {
+      "name": "app.sp-bi-image-base64",
+      "type": "java.lang.String",
+      "sourceType": "mip.mva.verifier.config.ConfigBean"
+    },
+    {
+      "name": "app.sp-bi-image-url",
+      "type": "java.lang.String",
+      "sourceType": "mip.mva.verifier.config.ConfigBean"
+    },
+    {
+      "name": "app.sp-ci",
+      "type": "java.lang.Boolean",
+      "sourceType": "mip.mva.verifier.config.ConfigBean"
+    },
+    {
+      "name": "app.sp-did-path",
+      "type": "java.lang.String",
+      "sourceType": "mip.mva.verifier.config.ConfigBean"
+    },
+    {
+      "name": "app.sp-key-id",
+      "type": "java.lang.String",
+      "sourceType": "mip.mva.verifier.config.ConfigBean"
+    },
+    {
+      "name": "app.sp-rsa-key-id",
+      "type": "java.lang.String",
+      "sourceType": "mip.mva.verifier.config.ConfigBean"
+    },
+    {
+      "name": "app.sp-server",
+      "type": "java.lang.String",
+      "sourceType": "mip.mva.verifier.config.ConfigBean"
+    },
+    {
+      "name": "app.svc-file-path",
+      "type": "java.lang.String",
+      "sourceType": "mip.mva.verifier.config.ConfigBean"
+    },
+    {
+      "name": "app.zkp-schema-name",
+      "type": "java.lang.String",
+      "sourceType": "mip.mva.verifier.config.ConfigBean"
+    }
+  ],
+  "hints": []
+}

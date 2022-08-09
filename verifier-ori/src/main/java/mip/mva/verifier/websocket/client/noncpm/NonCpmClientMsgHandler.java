@@ -1,0 +1,125 @@
+package mip.mva.verifier.websocket.client.noncpm;
+
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+
+import org.eclipse.jetty.websocket.api.Session;
+import org.eclipse.jetty.websocket.api.annotations.OnWebSocketClose;
+import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect;
+import org.eclipse.jetty.websocket.api.annotations.OnWebSocketMessage;
+import org.eclipse.jetty.websocket.api.annotations.WebSocket;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.google.gson.Gson;
+
+import mip.mva.verifier.comm.exception.VerifierException;
+import mip.mva.verifier.comm.vo.WsInfoVO;
+import mip.mva.verifier.websocket.vo.MsgStartNonCpm;
+
+/**
+ * @Project     : 모바일 운전면허증 서비스 구축 사업
+ * @PackageName : mip.mva.verifier.websocket.client.noncpm
+ * @FileName    : NonCpmClientMsgHandler.java
+ * @Author      : Min Gi Ju
+ * @Date        : 2022. 5. 31.
+ * @Description : Non CPM 클라이언트 메세지 핸들러 Class
+ * ==================================================
+ * DATE            AUTHOR           NOTE
+ * ==================================================
+ * 2022. 5. 31.    Min Gi Ju        최초생성
+ */
+@WebSocket(maxTextMessageSize = 3145728)
+public class NonCpmClientMsgHandler {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(NonCpmClientMsgHandler.class);
+
+	private final CountDownLatch closeLatch;
+	private final WsInfoVO wsInfo;
+
+	private Session session;
+
+	/**
+	 * 생성자
+	 * 
+	 * @param wsInfo 웹소켓 정보
+	 */
+	public NonCpmClientMsgHandler(WsInfoVO wsInfo) {
+		this.wsInfo = wsInfo;
+		this.closeLatch = new CountDownLatch(1);
+	}
+	/**
+	 * 웹소켓 종료 정보 설정
+	 * 
+	 * @MethodName : awaitClose
+	 * @param duration 기간
+	 * @param unit 단위
+	 * @return
+	 * @throws InterruptedException
+	 */
+	public Boolean awaitClose(int duration, TimeUnit unit) throws InterruptedException {
+		return this.closeLatch.await(duration, unit);
+	}
+
+	/**
+	 * 웹소켓 종료
+	 * 
+	 * @MethodName : onClose
+	 * @param statusCode 상태코드
+	 * @param reason 사유
+	 */
+	@OnWebSocketClose
+	public void onClose(int statusCode, String reason) {
+		LOGGER.debug("connection closed: {} - {}", statusCode, reason);
+
+		this.session = null;
+		this.closeLatch.countDown();
+	}
+
+	/**
+	 * 웹소켓 연결
+	 * 
+	 * @MethodName : onConnect
+	 * @param session Websocket 세션
+	 */
+	@OnWebSocketConnect
+	public void onConnect(Session session) {
+		LOGGER.debug("connected: {}", session);
+
+		this.session = session;
+
+		try {
+			MsgStartNonCpm msgStartNonCpm = new MsgStartNonCpm(true);
+
+			String json_string = new Gson().toJson(msgStartNonCpm);
+
+			LOGGER.debug("send: {}", json_string);
+
+			session.getRemote().sendString(json_string);
+		} catch (Throwable t) {
+			LOGGER.error(t.getMessage(), t);
+		}
+	}
+
+	/**
+	 * 메세지 수신
+	 * 
+	 * @MethodName : onMessage
+	 * @param msg 메세지
+	 */
+	@OnWebSocketMessage
+	public void onMessage(String msg) {
+		LOGGER.debug("received: {}", msg);
+
+		if ((session != null) && (session.isOpen())) {
+			NonCpmBranch nonCpmBranch = new NonCpmBranch();
+
+			try {
+				nonCpmBranch.packetChoose(msg, session, wsInfo);
+			} catch (VerifierException e) {
+				LOGGER.error("시스템 IO 에러", e);
+			}
+		}
+	}
+
+}
