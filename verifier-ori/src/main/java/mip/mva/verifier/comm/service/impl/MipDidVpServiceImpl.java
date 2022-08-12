@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -126,6 +127,18 @@ public class MipDidVpServiceImpl implements MipDidVpService, InitializingBean {
 			File keyManagerFile = ResourceUtils.getFile(configBean.getKeymanagerPath());
 			String keyManagerPath = keyManagerFile.getAbsolutePath();
 
+			//keymanager, spAcount 암호화 - 복호화 후 사용
+			StandardPBEStringEncryptor encryptor = new StandardPBEStringEncryptor();
+		    
+		    encryptor.setAlgorithm("PBEWITHMD5ANDTRIPLEDES");
+		    encryptor.setPassword("test_password");
+		    
+		    String decryption = encryptor.decrypt(configBean.getKeymanagerPassword());
+		    configBean.setKeymanagerPassword(decryption);
+		    
+		    decryption = encryptor.decrypt(configBean.getSpAccount());
+		    configBean.setSpAccount(decryption);
+		    
 			keyManager = KeyManagerFactory.getKeyManager(KeyManagerType.DEFAULT, keyManagerPath, configBean.getKeymanagerPassword().toCharArray());
 
 			keyManager.unLock(configBean.getKeymanagerPassword().toCharArray(), new OnUnLockListener() {

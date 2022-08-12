@@ -42,6 +42,14 @@
 	</pluginRepositories>
 	
 	<dependencies>
+	
+		<!-- https://mvnrepository.com/artifact/org.jasypt/jasypt-spring4 -->
+		<dependency>
+			<groupId>org.jasypt</groupId>
+			<artifactId>jasypt-spring31</artifactId>
+			<version>1.9.2</version>
+		</dependency>
+
 		<!-- Spring Start -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

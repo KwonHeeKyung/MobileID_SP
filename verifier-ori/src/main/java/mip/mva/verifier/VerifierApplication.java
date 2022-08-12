@@ -8,6 +8,7 @@ import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.util.ResourceUtils;
 
 import com.google.gson.reflect.TypeToken;
@@ -48,8 +50,17 @@ public class VerifierApplication extends SpringBootServletInitializer {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		SpringApplication.run(VerifierApplication.class, args);
-
+		
+		ConfigurableApplicationContext ctx = SpringApplication.run(VerifierApplication.class, args);
+	
+		Scanner sc = new Scanner(System.in);
+		LOGGER.info("Please enter a password:");
+		String openPwd = sc.nextLine();
+		if(!openPwd.equals("1234567890") ) {
+			LOGGER.info("The password is incorrect. Exit the program.");
+			ctx.close();
+		}
+		
 		try {
 			ConfigBean configBean = (ConfigBean) SpringUtil.getBean(ConfigBean.class);
 			SvcDAO svcDAO = (SvcDAO) SpringUtil.getBean(SvcDAO.class);
