@@ -72,6 +72,12 @@ public class VerifierApplication extends SpringBootServletInitializer {
 			for (SvcVO svc : svcList) {
 				svcDAO.insertSvc(svc);
 			}
+			
+			LOGGER.debug("::::::::::::::::::::::::::::::::::::::::::::::::::");
+			LOGGER.debug("::::::::::::Mobile ID SP Server Start!::::::::::::");
+			LOGGER.debug("::::::::::::::::::::::::::::::::::::::::::::::::::");
+			
+			
 		} catch (Exception e) {
 			LOGGER.error("Service regist error!");
 		}
